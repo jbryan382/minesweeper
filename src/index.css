@@ -26,6 +26,19 @@ h1 {
   color: #d4dee2;
 }
 
+table {
+  border-spacing: 0.01rem;
+}
+
+td {
+  background-color: antiquewhite;
+  padding: 1rem;
+  border-right: solid purple 1px;
+  border-bottom: solid purple 1px;
+  border-top: solid yellow 1px;
+  border-left: solid yellow 1px;
+}
+
 .reset {
   width: 10%;
   margin: 1rem;
