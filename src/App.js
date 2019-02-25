@@ -21,6 +21,11 @@ class App extends Component {
       <main>
         <section>
           <h1>💣 Smelly Bombs! 💣</h1>
+          <select>
+            <option>Beginner</option>
+            <option>Intermediate</option>
+            <option>Expert</option>
+          </select>
           <button className="reset">Reset</button>
         </section>
         <section className="game_body">

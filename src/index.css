@@ -33,10 +33,10 @@ table {
 td {
   background-color: antiquewhite;
   padding: 1rem;
-  border-right: solid purple 1px;
-  border-bottom: solid purple 1px;
-  border-top: solid yellow 1px;
-  border-left: solid yellow 1px;
+  border-right: solid black 10px;
+  border-bottom: solid black 10px;
+  border-top: solid grey 10px;
+  border-left: solid grey 10px;
 }
 
 .reset {
