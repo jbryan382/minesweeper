@@ -3,16 +3,30 @@ import axios from 'axios'
 
 class App extends Component {
   state = {
-    game: [[]]
+    id: 0,
+    game: [[]],
+    difficulty: 0,
+    mines: 0
   }
 
+  setIntermediate = event => {
+    this.setState({ difficulty: 1 })
+  }
+
+  setExpert = event => {
+    this.setState({ difficulty: 2 })
+  }
   componentDidMount() {
     axios
-      .post('https://minesweeper-api.herokuapp.com/games', { difficulty: 0 })
+      .post('https://minesweeper-api.herokuapp.com/games', {
+        difficulty: this.state.difficulty
+      })
       .then(resp => {
         this.setState({
-          game: resp.data.board
+          game: resp.data.board,
+          mines: resp.data.mines
         })
+        console.log(this.state.mines)
       })
   }
 
@@ -23,8 +37,8 @@ class App extends Component {
           <h1>💣 Smelly Bombs! 💣</h1>
           <select>
             <option>Beginner</option>
-            <option>Intermediate</option>
-            <option>Expert</option>
+            <option onChange={this.setIntermediate}>Intermediate</option>
+            <option onChange={this.setExpert}>Expert</option>
           </select>
           <button className="reset">Reset</button>
         </section>
