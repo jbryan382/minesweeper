@@ -9,18 +9,20 @@ class App extends Component {
     mines: 0
   }
 
-  setIntermediate = event => {
-    this.setState({ difficulty: 1 })
-  }
-
-  setExpert = event => {
-    this.setState({ difficulty: 2 })
+  setDifficulty = event => {
+    console.log(event)
+    if (
+      event.target.value === 'Intermediate' &&
+      event.target.value !== 'Beginner'
+    ) {
+      this.setState({ difficulty: 1 })
+    } else {
+      this.setState({ difficulty: 2 })
+    }
   }
   componentDidMount() {
     axios
-      .post('https://minesweeper-api.herokuapp.com/games', {
-        difficulty: this.state.difficulty
-      })
+      .post('https://minesweeper-api.herokuapp.com/games', { setDifficulty() })
       .then(resp => {
         this.setState({
           game: resp.data.board,
@@ -37,8 +39,8 @@ class App extends Component {
           <h1>💣 Smelly Bombs! 💣</h1>
           <select>
             <option>Beginner</option>
-            <option onChange={this.setIntermediate}>Intermediate</option>
-            <option onChange={this.setExpert}>Expert</option>
+            <option onChange={this.setDifficulty}>Intermediate</option>
+            <option onChange={this.setDifficulty}>Expert</option>
           </select>
           <button className="reset">Reset</button>
         </section>
