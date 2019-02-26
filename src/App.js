@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
+// Try and get to play minesweeper by tonight 2/26
+
 class App extends Component {
   state = {
     id: 0,
@@ -32,6 +34,8 @@ class App extends Component {
       })
   }
 
+  // Call to API everytime the gameboard if clicked to update the gmae. 
+
   render() {
     return (
       <main>
@@ -39,8 +43,9 @@ class App extends Component {
           <h1>💣 Smelly Bombs! 💣</h1>
           <select>
             <option>Beginner</option>
-            <option onChange={this.setDifficulty}>Intermediate</option>
-            <option onChange={this.setDifficulty}>Expert</option>
+            {/* onChange or onSelect */}
+            <option onSelect={this.setDifficulty}>Intermediate</option>
+            <option onSelect={this.setDifficulty}>Expert</option>
           </select>
           <button className="reset">Reset</button>
         </section>
@@ -51,7 +56,7 @@ class App extends Component {
                 return (
                   <tr>
                     {row.map(col => {
-                      // Put an onClick{} event on td for functionality.
+                      // Put an onClick{} event on td for functionality. Open Context Menu
                       return <td>{col}</td>
                     })}
                   </tr>
