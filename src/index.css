@@ -32,7 +32,7 @@ table {
 
 td {
   background-color: antiquewhite;
-  padding: 1rem;
+  padding: 2rem;
   border-right: solid black 10px;
   border-bottom: solid black 10px;
   border-top: solid grey 10px;
@@ -40,6 +40,7 @@ td {
 }
 
 .reset {
-  width: 10%;
+  width: 5%;
   margin: 1rem;
+  border-radius: 1rem;
 }
