@@ -8,7 +8,10 @@ class App extends Component {
     id: 0,
     game: [[]],
     difficulty: 0,
-    mines: 0
+    mines: 0,
+    // Need to add function that tracks the state of the game in axois request.
+    // "gameStatus: resp.data.state" and it will respond with a string of "new", "playing", "won", "lost"
+    gameStatus: ''
   }
 
   // setDifficulty = event => {
@@ -22,6 +25,7 @@ class App extends Component {
   //     this.setState({ difficulty: 2 })
   //   }
   // }
+
   componentDidMount() {
     axios
       .post('https://minesweeper-api.herokuapp.com/games', { difficulty: 0 })
@@ -35,7 +39,19 @@ class App extends Component {
       })
   }
 
-  startGame = (x, y) => {
+  setIntermediate = () => {
+    axios
+      .post('https://minesweeper-api.herokuapp.com/games', { difficulty: 1 })
+      .then(resp => {
+        this.setState({
+          id: resp.data.id,
+          game: resp.data.board,
+          mines: resp.data.mines
+        })
+      })
+  }
+
+  playGame = (x, y) => {
     axios
       .post(
         `https://minesweeper-api.herokuapp.com/games/${this.state.id}/check`,
@@ -93,10 +109,10 @@ class App extends Component {
       <main>
         <section>
           <h1>💣 Smelly Bombs! 💣</h1>
-          <select>
+          <select onChange={this.setIntermediate}>
             <option>Beginner</option>
             {/* onChange or onSelect */}
-            {/* <option onSelect={this.setDifficulty}>Intermediate</option> */}
+            <option>Intermediate</option>
             {/* <option onSelect={this.setDifficulty}>Expert</option> */}
           </select>
           <button className="reset" onClick={() => this.resetGame()}>
@@ -113,9 +129,10 @@ class App extends Component {
                       return (
                         <td
                           key={y}
-                          onClick={() => this.startGame(x, y)}
+                          onClick={() => this.playGame(x, y)}
                           onContextMenu={() => this.plantFlag(x, y)}
                         >
+                          &nbsp;
                           {col}
                         </td>
                       )
