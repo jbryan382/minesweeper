@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import Cell from './components/Cell'
 
 // Try and get to play minesweeper by tonight 2/26
 
@@ -13,18 +14,6 @@ class App extends Component {
     // "gameStatus: resp.data.state" and it will respond with a string of "new", "playing", "won", "lost"
     gameStatus: ''
   }
-
-  // setDifficulty = event => {
-  //   console.log(event)
-  //   if (
-  //     event.target.value === 'Intermediate' &&
-  //     event.target.value !== 'Beginner'
-  //   ) {
-  //     this.setState({ difficulty: 1 })
-  //   } else {
-  //     this.setState({ difficulty: 2 })
-  //   }
-  // }
 
   componentDidMount() {
     axios
@@ -40,6 +29,7 @@ class App extends Component {
         })
       })
   }
+  //  Create Local storage for previous games.
   //       const token = localStorage.getItem('saved-game')
   //       if (token) {
   //         this.setState(
@@ -56,24 +46,14 @@ class App extends Component {
 
   setDifficulty = event => {
     console.log(event.target.value)
-    this.setState({
-      difficulty: event.target.value
-    })
-  }
-
-  setGame = () => {
-    axios
-      .post('https://minesweeper-api.herokuapp.com/games', {
-        difficulty: this.state.difficulty
-      })
-      .then(resp => {
-        this.setState({
-          id: resp.data.id,
-          game: resp.data.board,
-          gameStatus: resp.data.state
-        })
-        console.log(this.state.mines)
-      })
+    this.setState(
+      {
+        difficulty: event.target.value
+      },
+      () => {
+        this.resetGame()
+      }
+    )
   }
 
   playGame = (x, y) => {
@@ -99,7 +79,7 @@ class App extends Component {
   resetGame = () => {
     axios
       .post('https://minesweeper-api.herokuapp.com/games', {
-        difficulty: 0
+        difficulty: this.state.difficulty
       })
       .then(resp => {
         this.setState({
@@ -142,9 +122,6 @@ class App extends Component {
             <option value="1"> Intermediate</option>
             <option value="2">Expert</option>
           </select>
-          <button className="reset" onClick={() => this.setGame()}>
-            Set Difficulty
-          </button>
           <h1>{this.state.gameStatus}</h1>
           <button className="reset" onClick={() => this.resetGame()}>
             😀
@@ -158,14 +135,14 @@ class App extends Component {
                   <tr key={x}>
                     {row.map((col, y) => {
                       return (
-                        <td
+                        <Cell
                           key={y}
-                          onClick={() => this.playGame(x, y)}
-                          onContextMenu={() => this.plantFlag(x, y)}
-                        >
-                          &nbsp;
-                          {col}
-                        </td>
+                          col={col}
+                          rowIndex={x}
+                          colIndex={y}
+                          playGame={this.playGame}
+                          plantFlag={this.plantFlag}
+                        />
                       )
                     })}
                   </tr>
