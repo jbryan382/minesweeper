@@ -11,7 +11,8 @@ class App extends Component {
     mines: 0,
     // Need to add function that tracks the state of the game in axois request.
     // "gameStatus: resp.data.state" and it will respond with a string of "new", "playing", "won", "lost"
-    gameStatus: ''
+    gameStatus: '',
+    value: ''
   }
 
   // setDifficulty = event => {
@@ -33,21 +34,34 @@ class App extends Component {
         this.setState({
           id: resp.data.id,
           game: resp.data.board,
-          mines: resp.data.mines
+          mines: resp.data.mines,
+          gameStatus: resp.data.state
         })
         console.log(this.state.mines)
       })
   }
 
-  setIntermediate = () => {
+  setDifficulty = event => {
     axios
-      .post('https://minesweeper-api.herokuapp.com/games', { difficulty: 1 })
+      .post('https://minesweeper-api.herokuapp.com/games', {
+        difficulty: event.type.value
+      })
       .then(resp => {
         this.setState({
           id: resp.data.id,
           game: resp.data.board,
-          mines: resp.data.mines
+          mines: resp.data.mines,
+          gameStatus: resp.data.state
         })
+        if (event.type.value === 'Intermediate') {
+          this.setState({
+            difficulty: 1
+          })
+        } else if (event.type.value === 'Expert') {
+          this.setState({
+            difficulty: 2
+          })
+        }
       })
   }
 
@@ -65,7 +79,8 @@ class App extends Component {
       .then(resp => {
         console.log(resp)
         this.setState({
-          game: resp.data.board
+          game: resp.data.board,
+          gameStatus: resp.data.state
         })
       })
   }
@@ -77,7 +92,7 @@ class App extends Component {
         this.setState({
           id: resp.data.id,
           game: resp.data.board,
-          mines: resp.data.mines
+          gameStatus: resp.data.state
         })
         console.log(this.state.mines)
       })
@@ -90,8 +105,7 @@ class App extends Component {
         {
           id: this.state.id,
           row: x,
-          col: y,
-          mines: 0
+          col: y
         }
       )
       .then(resp => {
@@ -109,12 +123,15 @@ class App extends Component {
       <main>
         <section>
           <h1>💣 Smelly Bombs! 💣</h1>
-          <select onChange={this.setIntermediate}>
-            <option>Beginner</option>
+          {/* Need to have checked I doubt the viablity of my value from the select box */}
+          <select onChange={this.setDifficulty} value={this.setState.value}>
+            {console.log(this.event)}
             {/* onChange or onSelect */}
+            <option>Beginner</option>
             <option>Intermediate</option>
-            {/* <option onSelect={this.setDifficulty}>Expert</option> */}
+            <option>Expert</option>
           </select>
+          <h1>{this.state.gameStatus}</h1>
           <button className="reset" onClick={() => this.resetGame()}>
             😀
           </button>
