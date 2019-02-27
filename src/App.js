@@ -11,8 +11,7 @@ class App extends Component {
     mines: 0,
     // Need to add function that tracks the state of the game in axois request.
     // "gameStatus: resp.data.state" and it will respond with a string of "new", "playing", "won", "lost"
-    gameStatus: '',
-    value: ''
+    gameStatus: ''
   }
 
   // setDifficulty = event => {
@@ -29,39 +28,51 @@ class App extends Component {
 
   componentDidMount() {
     axios
-      .post('https://minesweeper-api.herokuapp.com/games', { difficulty: 0 })
+      .post('https://minesweeper-api.herokuapp.com/games', {
+        difficulty: this.state.difficulty
+      })
       .then(resp => {
         this.setState({
           id: resp.data.id,
           game: resp.data.board,
           mines: resp.data.mines,
+          gameStatus: resp.data.state
+        })
+      })
+  }
+  //       const token = localStorage.getItem('saved-game')
+  //       if (token) {
+  //         this.setState(
+  //           {
+  //           id: token
+  //         },
+  //         () => {
+  //           this.componentDidMount()
+  //         }
+  //      )
+  //     }
+  //   }
+  // }
+
+  setDifficulty = event => {
+    console.log(event.target.value)
+    this.setState({
+      difficulty: event.target.value
+    })
+  }
+
+  setGame = () => {
+    axios
+      .post('https://minesweeper-api.herokuapp.com/games', {
+        difficulty: this.state.difficulty
+      })
+      .then(resp => {
+        this.setState({
+          id: resp.data.id,
+          game: resp.data.board,
           gameStatus: resp.data.state
         })
         console.log(this.state.mines)
-      })
-  }
-
-  setDifficulty = event => {
-    axios
-      .post('https://minesweeper-api.herokuapp.com/games', {
-        difficulty: event.type.value
-      })
-      .then(resp => {
-        this.setState({
-          id: resp.data.id,
-          game: resp.data.board,
-          mines: resp.data.mines,
-          gameStatus: resp.data.state
-        })
-        if (event.type.value === 'Intermediate') {
-          this.setState({
-            difficulty: 1
-          })
-        } else if (event.type.value === 'Expert') {
-          this.setState({
-            difficulty: 2
-          })
-        }
       })
   }
 
@@ -87,15 +98,18 @@ class App extends Component {
 
   resetGame = () => {
     axios
-      .post('https://minesweeper-api.herokuapp.com/games', { difficulty: 0 })
+      .post('https://minesweeper-api.herokuapp.com/games', {
+        difficulty: 0
+      })
       .then(resp => {
         this.setState({
           id: resp.data.id,
           game: resp.data.board,
           gameStatus: resp.data.state
         })
-        console.log(this.state.mines)
       })
+
+    localStorage.setItem('saved-game', this.state.id)
   }
 
   plantFlag = (x, y) => {
@@ -115,22 +129,22 @@ class App extends Component {
         })
       })
   }
-
   // Call to API every time the game board if clicked to update the game.
 
   render() {
     return (
       <main>
-        <section>
+        <section className="game_header">
           <h1>💣 Smelly Bombs! 💣</h1>
           {/* Need to have checked I doubt the viablity of my value from the select box */}
-          <select onChange={this.setDifficulty} value={this.setState.value}>
-            {console.log(this.event)}
-            {/* onChange or onSelect */}
-            <option>Beginner</option>
-            <option>Intermediate</option>
-            <option>Expert</option>
+          <select onChange={this.setDifficulty} value={this.state.difficulty}>
+            <option value="0">Beginner</option>
+            <option value="1"> Intermediate</option>
+            <option value="2">Expert</option>
           </select>
+          <button className="reset" onClick={() => this.setGame()}>
+            Set Difficulty
+          </button>
           <h1>{this.state.gameStatus}</h1>
           <button className="reset" onClick={() => this.resetGame()}>
             😀

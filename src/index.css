@@ -1,5 +1,6 @@
 :root {
   font: 16px / 1 sans-serif;
+  font-family: 'Share Tech Mono', monospace;
 }
 
 html {
@@ -32,7 +33,7 @@ table {
 
 td {
   background-color: antiquewhite;
-  padding: 2rem;
+  padding: 0.8rem;
   border-right: solid black 10px;
   border-bottom: solid black 10px;
   border-top: solid grey 10px;
