@@ -21,6 +21,26 @@ class Cell extends Component {
         picture = ''
         cellType = 'revealed-cell'
         break
+      case 1:
+        picture = 1
+        cellType = 'one-cell'
+        break
+      case 2:
+        picture = 2
+        cellType = 'two-cell'
+        break
+      case 3:
+        picture = 3
+        cellType = 'three-cell'
+        break
+      case 4:
+        picture = 4
+        cellType = 'four-cell'
+        break
+      case 5:
+        picture = 5
+        cellType = 'five-cell'
+        break
       case '':
         break
       default:

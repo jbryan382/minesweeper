@@ -74,6 +74,7 @@ class App extends Component {
           gameStatus: resp.data.state
         })
       })
+    // Add () => If({this.setstate}) Else ({this.setstate})
   }
 
   resetGame = () => {
@@ -123,9 +124,9 @@ class App extends Component {
             <option value="2">Expert</option>
           </select>
           <h1>{this.state.gameStatus}</h1>
-          <button className="reset" onClick={() => this.resetGame()}>
+          <h3 className="reset" onClick={() => this.resetGame()}>
             😀
-          </button>
+          </h3>
         </section>
         <section className="game_body">
           <table>

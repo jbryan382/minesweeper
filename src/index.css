@@ -32,6 +32,10 @@ h1 {
   border-radius: 0.5rem;
 }
 
+h3 {
+  font-size: 3rem;
+}
+
 .difficulty {
   margin: 1rem;
   padding: 0.5rem;
@@ -48,7 +52,7 @@ table {
 }
 
 .hidden-cell {
-  background-color: yellow;
+  background-color: rgb(141, 141, 141);
   padding: 0.8rem;
   border-right: solid black 0.5rem;
   border-bottom: solid black 0.5rem;
@@ -58,7 +62,7 @@ table {
 }
 
 .revealed-cell-bomb {
-  background-color: red;
+  background-color: rgb(110, 29, 29);
   padding: 0.8rem;
   border-right: solid black 0.5rem;
   border-bottom: solid black 0.5rem;
@@ -67,7 +71,62 @@ table {
   width: auto;
 }
 .revealed-cell {
-  background-color: green;
+  background-color: white;
+  padding: 0.8rem;
+  border-right: solid black 0.5rem;
+  border-bottom: solid black 0.5rem;
+  border-top: solid grey 0.5rem;
+  border-left: solid grey 0.5rem;
+  width: auto;
+}
+
+.one-cell {
+  color: blue;
+  background-color: white;
+  padding: 0.8rem;
+  border-right: solid black 0.5rem;
+  border-bottom: solid black 0.5rem;
+  border-top: solid grey 0.5rem;
+  border-left: solid grey 0.5rem;
+  width: auto;
+}
+
+.two-cell {
+  color: green;
+  background-color: white;
+  padding: 0.8rem;
+  border-right: solid black 0.5rem;
+  border-bottom: solid black 0.5rem;
+  border-top: solid grey 0.5rem;
+  border-left: solid grey 0.5rem;
+  width: auto;
+}
+
+.three-cell {
+  color: red;
+  background-color: white;
+  padding: 0.8rem;
+  border-right: solid black 0.5rem;
+  border-bottom: solid black 0.5rem;
+  border-top: solid grey 0.5rem;
+  border-left: solid grey 0.5rem;
+  width: auto;
+}
+
+.four-cell {
+  color: purple;
+  background-color: white;
+  padding: 0.8rem;
+  border-right: solid black 0.5rem;
+  border-bottom: solid black 0.5rem;
+  border-top: solid grey 0.5rem;
+  border-left: solid grey 0.5rem;
+  width: auto;
+}
+
+.five-cell {
+  color: orange;
+  background-color: white;
   padding: 0.8rem;
   border-right: solid black 0.5rem;
   border-bottom: solid black 0.5rem;
